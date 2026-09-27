@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Model Comparison — WeatherSense AI{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1>Model Comparison</h1>
+    <p class="subtitle">Every metric below comes from an actual trained-and-evaluated model — nothing hard-coded</p>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-title">Weather condition classification {% if classification.best_model_name %}— best: <strong style="color:var(--sky)">{{ classification.best_model_name }}</strong>{% endif %}</div>
+  <div class="scroll-x">
+  <table class="data-table">
+    <thead><tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1 Score</th><th>Training Time (s)</th></tr></thead>
+    <tbody>
+    {% for name, m in classification.results.items %}
+      <tr {% if name == classification.best_model_name %}style="background:rgba(71,185,240,0.08)"{% endif %}>
+        <td>{{ name }}</td><td>{{ m.accuracy }}</td><td>{{ m.precision }}</td><td>{{ m.recall }}</td><td>{{ m.f1_score }}</td><td>{{ m.training_time_sec }}</td>
+      </tr>
+    {% empty %}<tr><td colspan="6">Run <code>python train_models.py</code> first.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="panel" style="margin-top:18px;">
+  <div class="panel-title">Next-day maximum temperature regression {% if regression.best_model_name %}— best: <strong style="color:var(--sky)">{{ regression.best_model_name }}</strong>{% endif %}</div>
+  <div class="scroll-x">
+  <table class="data-table">
+    <thead><tr><th>Model</th><th>MAE</th><th>MSE</th><th>RMSE</th><th>R²</th><th>Training Time (s)</th></tr></thead>
+    <tbody>
+    {% for name, m in regression.results.items %}
+      <tr {% if name == regression.best_model_name %}style="background:rgba(71,185,240,0.08)"{% endif %}>
+        <td>{{ name }}</td><td>{{ m.mae }}</td><td>{{ m.mse }}</td><td>{{ m.rmse }}</td><td>{{ m.r2 }}</td><td>{{ m.training_time_sec }}</td>
+      </tr>
+    {% empty %}<tr><td colspan="6">Run <code>python train_models.py</code> first.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="panel" style="margin-top:18px;">
+  <div class="panel-title">Rainfall next-day prediction {% if rainfall.best_model_name %}— best: <strong style="color:var(--sky)">{{ rainfall.best_model_name }}</strong>{% endif %}</div>
+  <div class="scroll-x">
+  <table class="data-table">
+    <thead><tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1 Score</th><th>Training Time (s)</th></tr></thead>
+    <tbody>
+    {% for name, m in rainfall.results.items %}
+      <tr {% if name == rainfall.best_model_name %}style="background:rgba(71,185,240,0.08)"{% endif %}>
+        <td>{{ name }}</td><td>{{ m.accuracy }}</td><td>{{ m.precision }}</td><td>{{ m.recall }}</td><td>{{ m.f1_score }}</td><td>{{ m.training_time_sec }}</td>
+      </tr>
+    {% empty %}<tr><td colspan="6">Run <code>python train_models.py</code> first.</td></tr>{% endfor %}
+    </tbody>
+  </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}WeatherSense AI{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+{% block extra_head %}{% endblock %}
+</head>
+<body>
+<div class="app-shell">
+  <nav class="sidebar">
+    <div class="brand">
+      <div class="mark">Weather<span>Sense</span> AI</div>
+      <div class="tag">Weather Data Mining &amp; Prediction Platform</div>
+    </div>
+
+    <div class="nav-group-label">Overview</div>
+    <a class="nav-link-item {% if active_page == 'dashboard' %}active{% endif %}" href="{% url 'weather:dashboard' %}"><span class="dot"></span> Dashboard</a>
+
+    <div class="nav-group-label">Prediction</div>
+    <a class="nav-link-item {% if active_page == 'prediction' %}active{% endif %}" href="{% url 'weather:prediction' %}"><span class="dot"></span> Weather Prediction</a>
+    <a class="nav-link-item {% if active_page == 'forecast' %}active{% endif %}" href="{% url 'weather:forecast' %}"><span class="dot"></span> Forecast</a>
+
+    <div class="nav-group-label">Data Mining</div>
+    <a class="nav-link-item {% if active_page == 'analysis' %}active{% endif %}" href="{% url 'weather:analysis' %}"><span class="dot"></span> Data Mining &amp; EDA</a>
+    <a class="nav-link-item {% if active_page == 'patterns' %}active{% endif %}" href="{% url 'weather:patterns' %}"><span class="dot"></span> Weather Patterns</a>
+    <a class="nav-link-item {% if active_page == 'clustering' %}active{% endif %}" href="{% url 'weather:clustering' %}"><span class="dot"></span> Clustering</a>
+    <a class="nav-link-item {% if active_page == 'anomalies' %}active{% endif %}" href="{% url 'weather:anomalies' %}"><span class="dot"></span> Anomalies</a>
+
+    <div class="nav-group-label">Models</div>
+    <a class="nav-link-item {% if active_page == 'model_comparison' %}active{% endif %}" href="{% url 'weather:model_comparison' %}"><span class="dot"></span> Model Comparison</a>
+    <a class="nav-link-item {% if active_page == 'explainable_ai' %}active{% endif %}" href="{% url 'weather:explainable_ai' %}"><span class="dot"></span> Explainable AI</a>
+
+    <div class="nav-group-label">Explore</div>
+    <a class="nav-link-item {% if active_page == 'city_comparison' %}active{% endif %}" href="{% url 'weather:city_comparison' %}"><span class="dot"></span> City Comparison</a>
+    <a class="nav-link-item {% if active_page == 'upload' %}active{% endif %}" href="{% url 'weather:upload' %}"><span class="dot"></span> Upload Dataset</a>
+    <a class="nav-link-item {% if active_page == 'reports' %}active{% endif %}" href="{% url 'weather:reports' %}"><span class="dot"></span> Reports</a>
+    <a class="nav-link-item {% if active_page == 'about' %}active{% endif %}" href="{% url 'weather:about' %}"><span class="dot"></span> About Project</a>
+
+    <div class="nav-group-label">Admin</div>
+    <a class="nav-link-item" href="/admin/" target="_blank"><span class="dot"></span> Django Admin</a>
+  </nav>
+
+  <main class="main">
+    {% block content %}{% endblock %}
+  </main>
+</div>
+{% block extra_js %}{% endblock %}
+</body>
+</html>
